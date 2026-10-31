@@ -1,0 +1,23 @@
+{
+  "name": "panda-labirent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sevimli Hayvanlar Labirent Macerası - Panda Games Studio",
+  "scripts": {
+    "android:add": "npx cap add android",
+    "android:patch": "node scripts/patch-android.js",
+    "android:sync": "npx cap sync android",
+    "android:build": "cd android && ./gradlew assembleDebug"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/app": "^7.0.0",
+    "@capacitor/core": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

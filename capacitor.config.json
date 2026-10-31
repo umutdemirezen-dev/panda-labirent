@@ -1,0 +1,18 @@
+{
+  "appId": "com.pandagames.labirent",
+  "appName": "Panda Labirent",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "backgroundColor": "#bce9fb",
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  },
+  "pandaBuild": {
+    "orientation": "sensorLandscape",
+    "immersive": true,
+    "keepScreenOn": true
+  }
+}
