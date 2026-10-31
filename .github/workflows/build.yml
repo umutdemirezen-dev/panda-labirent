@@ -1,0 +1,57 @@
+name: Android APK Derle
+
+on:
+  push:a
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: app-debug.apk
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Kodu al
+        uses: actions/checkout@v4
+
+      - name: Node.js kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Java 21 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Android SDK hazırla
+        uses: android-actions/setup-android@v3
+
+      - name: npm paketlerini yükle
+        run: npm install --no-audit --no-fund
+
+      - name: Android platformunu oluştur
+        run: |
+          rm -rf android
+          npx cap add android
+
+      - name: Android projesini hazırla (ikon, yatay ekran, tam ekran, Türkçe seslendirme)
+        run: node scripts/patch-android.js
+
+      - name: Web dosyalarını eşitle
+        run: npx cap sync android
+
+      - name: Gradle ile APK derle
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: APK'yı indirilebilir yap
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
