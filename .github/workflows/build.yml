@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main, master ]
   workflow_dispatch:
+
 jobs:
   build:
     name: app-debug.apk
@@ -24,9 +25,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '21'
-
-      - name: Android SDK hazırla
-        uses: android-actions/setup-android@v3
 
       - name: npm paketlerini yükle
         run: npm install --no-audit --no-fund
